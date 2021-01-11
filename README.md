@@ -4,20 +4,64 @@
 
   
 
-# MapmyIndia Intouch Sdk React Native
+# MapmyIndia Intouch React Native SDK
+## Introduction
+Get Real-Time Location Tracking for your apps with MapmyIndia InTouch SDK. Track a user's live location with our simplified InTouch React native SDK integration, highly customizable to your specific needs.
 
-## Getting started
+The InTouch SDK comes with a variety of events that enable better control and power over your tracking needs. Also get location benefits built for various applications including logistics, delivery tracking, employee tracking, and live location sharing.
 
-  
+To get started, explore the InTouch Demo App.
+
+Already have an application which is build on React Native? Give it a boost with the powerful features of InTouch. Learn how to  [Integrate the InTouch SDK](https://github.com/MapmyIndia/mapmyindia-intouch-react-native-sdk#AddInTouchSDK)
+
+-   [Setup](https://github.com/MapmyIndia/mapmyindia-intouch-react-native-sdk#Setup): Please contact  [apisupport@mapmyindia.com](mailto:apisupport@mapmyindia.com)  to get the Intouch SDK authorization for your Client ID and Client Secret.
+-   [Quick Start](https://github.com/MapmyIndia/mapmyindia-intouch-react-native-sdk#intouchdemo-app): Start with a ready-to-go app
+-   [Integrate the SDK](https://github.com/MapmyIndia/mapmyindia-intouch-react-native-sdk#IntegrateIntouchSDK): Integrate the SDK into your app
+-   [Dashboard](https://intouch.mapmyindia.com/nextgen): See all your devices' locations on MapmyIndia InTouch Dashboard
+
+## <a name="Setup">Setup 
+
+We use your Client ID to identify your account details and assign all your user's devices under a single account. 
+
+To get your Outh2 Rest API Client ID and Client Secret please login to MapmyIndia [API Dashboard](https://www.mapmyindia.com/api/dashboard)  
+
+Please contact [apisupport@mapmyindia.com](mailto:apisupport@mapmyindia.com) to get InTouch SDK access to your Client ID
+
+After getting the access, you can [start with the InTouchDemo app](#InTouchDemoApp), or [Integrate the InTouch SDK](#AddInTouchSDK) in your app.
+
+## <a name= "InTouchDemoApp"> InTouchDemo app </a>
+This guide allows you to add live location tracking to your react native app. [Visual Studio](https://code.visualstudio.com/?wt.mc_id=DX_841432) is the recommended development environment for building an app with the MapmyIndia InTouch React native SDK or you can use any other IDE.
+
+#### Step 1. Download the InTouchDemo App.
+[Click here](https://github.com/MapmyIndia/mapmyindia-intouch-react-native-sdk/archive/main.zip) to download the InTouchDemo App Project. Open this project in [Visual Studio](https://code.visualstudio.com/?wt.mc_id=DX_841432)
+
+#### Step 2. Set your Publishable key
+
+1.  Add the publishable key to InputScreen.js file.
+    
+2.  Run npm install
+
+3.  Run project on your device using simulator instance using below mentioned command line.
+
+     `npx react-native run-android`
+
+#### Step 3. Check your location on the InTouch [dashboard](https://intouch.mapmyindia.com/nextgen)
+
+
+
+## <a name="AddInTouchSDK"> Integrate the InTouch React Native  SDK </a>
+
+### Getting started
+Install the below mentioned library in your project.
 
 `npm install mapmyindia-intouch-react-native-sdk --save`
 
-  
-
 ###  Installation
+For Android add the below mentioned lines
+
 ### Android
-* Add followling line in `android/build.gradle` file:-
-```diff
+* Add following line in `android/build.gradle` file:-
+```java
 allprojects {
    repositories {
             mavenLocal()
@@ -41,8 +85,8 @@ allprojects {
 
 }
 ```
-  * Add followling line in `android/app/build.gradle` file:-
-  ```diff
+  * Add following line in `android/app/build.gradle` file:-
+  ```java
   defaultConfig {
 
 applicationId "com.intouch_react_native_sample"
@@ -64,18 +108,25 @@ versionName "1.0"
 
   
 
-## Usage
-1. Import Intouch sdk
+## Steps to use SDK into your project
+
+#### Step 1: Import Intouch SDK
 ```javascript
 import  MapmyIndiaIntouch  from  'mapmyindia-intouch-react-native-sdk';
 
 ```
 
-2. Initialize Intouch sdk
+#### Step 2.  Check if Intouch SDK is already initialized
 ```javascript
-MapmyIndiaIntouch.initialize(
-deviceName,
-PublishableId,
+const  status = await  MapmyIndiaIntouch.isInitialized();
+```
+
+#### Step 3: Initialize Intouch SDK
+
+Initialize the SDK with your Client ID and Client Secret and device name helps to identify the user.
+
+```javascript
+MapmyIndiaIntouch.initialize(deviceName,clientId,clientSecret
 (result) => {
 if (result === 'success') {
 console.log("success")
@@ -84,23 +135,21 @@ console.log("success")
 console.log(result)
 });
 ```
-3.  Check if Intouch sdk is already initialized
-```javascript
-const  status = await  MapmyIndiaIntouch.isInitialized();
-```
-4.   Check if Intouch sdk is already running
+#### Step 4:  Check if Intouch SDK is already running
 ```javascript
 const  status = await  MapmyIndiaIntouch.isRunning()
 ```
-5. Start tracking
+#### Step 5. Start tracking
+Track your app user's phone live location by using the below method.
 ```javascript
 MapmyIndiaIntouch.startTracking();
 ```
-6. Stop tracking
+#### Step 6. Stop tracking
+To stop your app user's phone live location tracking use the below mentioned method.
 ```javascript
 MapmyIndiaIntouch.stopTracking();
 ```
-7. Listen for tracking events
+#### Step 7. Listen for tracking events
 ```javascript
 MapmyIndiaIntouch.addTrackingStateListener((event) => {
 
@@ -108,7 +157,7 @@ console.log(event);
 
 });
 ```
-8. Remove Listener
+#### Step 8. Remove Listener
 ```javascript
 MapmyIndiaIntouch.removeTrackingStateListener();
 ```
