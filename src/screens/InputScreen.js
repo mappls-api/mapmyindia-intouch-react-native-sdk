@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import MapmyIndiaIntouch from "mapmyindia-intouch-react-native-sdk";
 
-const PublishableId = '';
+const clientId = '';
+const clientSecret='';
 
 class InputScreen extends Component {
   constructor(props: any) {
@@ -24,7 +25,8 @@ class InputScreen extends Component {
 
       MapmyIndiaIntouch.initialize(
         this.state.inputValue,
-        PublishableId,
+        clientId,
+        clientSecret,
         (result) => {
           if (result === 'success') {
             this.props.navigation.replace('track');
