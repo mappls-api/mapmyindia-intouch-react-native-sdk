@@ -35,9 +35,9 @@ This guide allows you to add live location tracking to your react native app. [V
 #### Step 1. Download the InTouchDemo App.
 [Click here](https://github.com/MapmyIndia/mapmyindia-intouch-react-native-sdk/archive/main.zip) to download the InTouchDemo App Project. Open this project in [Visual Studio](https://code.visualstudio.com/?wt.mc_id=DX_841432)
 
-#### Step 2. Set your Publishable key
+#### Step 2. Set your key
 
-1.  Add the publishable key to InputScreen.js file.
+1.  Add the Client Id and Client Secret to InputScreen.js file.
     
 2.  Run npm install
 
@@ -61,7 +61,7 @@ For Android add the below mentioned lines
 
 ### Android
 * Add following line in `android/build.gradle` file:-
-```java
+```diff
 allprojects {
    repositories {
             mavenLocal()
@@ -86,7 +86,7 @@ allprojects {
 }
 ```
   * Add following line in `android/app/build.gradle` file:-
-  ```java
+  ```diff
   defaultConfig {
 
 applicationId "com.intouch_react_native_sample"
