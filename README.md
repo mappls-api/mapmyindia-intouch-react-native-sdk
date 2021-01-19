@@ -144,17 +144,34 @@ Track your app user's phone live location by using the below method.
 ```javascript
 MapmyIndiaIntouch.startTracking();
 ```
+**You can start tracking using below three options**
+
+-   MapmyIndiaIntouch.BEACON_PRIORITY_FAST(default)
+-   MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL
+-   MapmyIndiaIntouch.BEACON_PRIORITY_SLOW
+~~~javascript
+MapmyIndiaIntouch.startTracking(MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL);
+~~~
+Note: If no priority provided default will be used.
 #### Step 6. Stop tracking
 To stop your app user's phone live location tracking use the below mentioned method.
 ```javascript
 MapmyIndiaIntouch.stopTracking();
 ```
 #### Step 7. Listen for tracking events
+This method will be called when tracking starts, stops or some tracking error is caught.
 ```javascript
 MapmyIndiaIntouch.addTrackingStateListener((event) => {
-
-console.log(event);
-
+ switch(event) {  
+    case 'onTrackingStart':  
+     //Do something on tracking start
+     break;  
+    case 'onTrackingStop':  
+     //Do something on tracking stop
+     break;  
+    default: 
+    //Tracking errors
+        }
 });
 ```
 #### Step 8. Remove Listener
