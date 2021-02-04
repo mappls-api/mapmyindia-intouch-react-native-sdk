@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  Platform,
 } from 'react-native';
 import MapmyIndiaIntouch from 'mapmyindia-intouch-react-native-sdk';
 import play from '../assets/play_arrow_24_px.png';
@@ -30,6 +31,11 @@ class TrackingScreen extends Component {
     MapmyIndiaIntouch.addTrackingStateListener((event) => {
       Toast.show(event);
       console.log(event);
+      if(event==="onTrackingStart"){
+        this.setIconsAndLabel(true);
+      }else{
+        this.setIconsAndLabel(false);
+      }
     });
     this.getData();
     const status = await MapmyIndiaIntouch.isRunning();
@@ -62,13 +68,14 @@ class TrackingScreen extends Component {
   };
   trackButtonPress = async () => {
     const status = await MapmyIndiaIntouch.isRunning();
-    // console.log(status);
+    //console.log(status);
     if (status) {
-      this.setIconsAndLabel(false);
+      
       MapmyIndiaIntouch.stopTracking();
     } else {
-      this.setIconsAndLabel(true);
+      
       MapmyIndiaIntouch.startTracking(this.state.currentSpeed);
+      //MapmyIndiaIntouch.startTrackingWithCustomConfig(5,5);
     }
   };
 
@@ -94,7 +101,83 @@ class TrackingScreen extends Component {
     }
   };
 
+  //only for ios platform
+  chooseLabel(value) {
+    switch (value) {
+      case 0:
+        return 'FAST';
+      case 1:
+        return 'SLOW';
+      case 2:
+        return 'OPTIMAL';
+      default:
+        return 'FAST';
+    }
+  }
+
   render() {
+    //only for ios platform
+    const iosPicker = this.state.dropDownEnabled ? (
+      <Picker
+        enabled={this.state.dropDownEnabled}
+        selectedValue={this.state.currentSpeed}
+        style={{height: 50, width: 140, marginBottom: 150}}
+        onValueChange={(itemValue, itemIndex) => {
+          console.log(itemValue);
+          this.storeData(itemValue);
+          this.setState({currentSpeed: itemValue});
+        }}>
+        <Picker.Item
+          label="FAST"
+          value={MapmyIndiaIntouch.BEACON_PRIORITY_FAST}
+        />
+        <Picker.Item
+          label="SLOW"
+          value={MapmyIndiaIntouch.BEACON_PRIORITY_SLOW}
+        />
+        <Picker.Item
+          label="OPTIMAL"
+          value={MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL}
+        />
+      </Picker>
+    ) : (
+      <Text>{this.chooseLabel(this.state.currentSpeed)}</Text>
+    );
+
+    const picker =
+      Platform.OS === 'android' ? (
+        <View
+          style={{
+            ...styles.picker,
+            backgroundColor: this.state.pickerBackground,
+            borderColor: this.state.pickerBackground,
+          }}>
+          <Picker
+            enabled={this.state.dropDownEnabled}
+            selectedValue={this.state.currentSpeed}
+            style={{height: 50, width: 140}}
+            onValueChange={(itemValue, itemIndex) => {
+              this.storeData(itemValue);
+              this.setState({currentSpeed: itemValue});
+            }}>
+            <Picker.Item
+              label="FAST"
+              value={MapmyIndiaIntouch.BEACON_PRIORITY_FAST}
+            />
+            <Picker.Item
+              label="SLOW"
+              value={MapmyIndiaIntouch.BEACON_PRIORITY_SLOW}
+            />
+            <Picker.Item
+              label="OPTIMAL"
+              value={MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL}
+            />
+          </Picker>
+        </View>
+      ) : (
+        iosPicker
+      );
+
     return (
       <View style={styles.root}>
         <Image
@@ -103,35 +186,8 @@ class TrackingScreen extends Component {
         />
         <Text style={styles.label}>Live Location Tracking</Text>
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-          <Text style={{fontWeight:'bold',color:'grey'}}>Choose Speed</Text>
-          <View
-            style={{
-              ...styles.picker,
-              backgroundColor: this.state.pickerBackground,
-              borderColor: this.state.pickerBackground,
-            }}>
-            <Picker
-              enabled={this.state.dropDownEnabled}
-              selectedValue={this.state.currentSpeed}
-              style={{height: 50, width: 140}}
-              onValueChange={(itemValue, itemIndex) => {
-                this.storeData(itemValue);
-                this.setState({currentSpeed: itemValue});
-              }}>
-              <Picker.Item
-                label="FAST"
-                value={MapmyIndiaIntouch.BEACON_PRIORITY_FAST}
-              />
-              <Picker.Item
-                label="SLOW"
-                value={MapmyIndiaIntouch.BEACON_PRIORITY_SLOW}
-              />
-              <Picker.Item
-                label="OPTIMAL"
-                value={MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL}
-              />
-            </Picker>
-          </View>
+          <Text style={{fontWeight: 'bold', color: 'grey'}}>Choose Speed</Text>
+           {picker}
           <TouchableOpacity onPress={this.trackButtonPress}>
             <View style={styles.trackButton}>
               <Image source={this.state.icon} style={{height: 30, width: 30}} />
