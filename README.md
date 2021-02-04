@@ -51,13 +51,16 @@ This guide allows you to add live location tracking to your react native app. [V
 
 ## <a name="AddInTouchSDK"> Integrate the InTouch React Native  SDK </a>
 
-### Getting started
+## Getting started
 Install the below mentioned library in your project.
 
 `npm install mapmyindia-intouch-react-native-sdk --save`
 
-###  Installation
-For Android add the below mentioned lines
+* If using React-native<0.60
+` react-native link mapmyindia-intouch-react-native-sdk`
+
+##  Installation
+For Android and Ios add the below mentioned lines
 
 ### Android
 * Add following line in `android/build.gradle` file:-
@@ -86,6 +89,7 @@ allprojects {
 }
 ```
   * Add following line in `android/app/build.gradle` file:-
+  
   ```diff
   defaultConfig {
 
@@ -103,11 +107,46 @@ versionName "1.0"
 
 }
 ```
-* If using React-native<0.60
-` react-native link mapmyindia-intouch-react-native-sdk`
 
-  
 
+### IOS
+*  Add follwoing permissions in your project's plist.info
+
+~~~
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Your location is used to personalize content.</string>
+ 
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Your location is used to personalize content.</string>
+
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Your location is used to personalize content.</string> 
+
+<key>NSMotionUsageDescription</key> 
+<string>In order to count steps I need an access to your pedometer</string>
+
+<key>UIBackgroundModes</key>
+<array>
+<string>fetch</string>
+<string>location</string>
+</array>
+~~~
+* Add following function in your project's **AppDelegate.m**
+
+~~~objectivec
+#import  <BeaconSdkFramework/BeaconSdkFramework.h>
+
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler
+{
+[Intouch.shared backgroundfetchWithCompletionHandler:completionHandler];
+}
+~~~
+
+
+* Enable **background fetch** and **location updates** from Signing and Capabilities
+
+* run **pod install** from ios folder
 ## Steps to use SDK into your project
 
 #### Step 1: Import Intouch SDK
@@ -153,6 +192,15 @@ MapmyIndiaIntouch.startTracking();
 MapmyIndiaIntouch.startTracking(MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL);
 ~~~
 Note: If no priority provided default will be used.
+
+#### OR
+
+~~~javascript
+MapmyIndiaIntouch.startTrackingWithCustomConfig(timeWhileMovingInSec,standByTimeInMins);
+~~~
+* timeWhileMovingInSec:(number) tracking api hit time while moving in seconds.
+* standByTimeInMins:(number) tracking api hit time while standby in minutes.
+
 #### Step 6. Stop tracking
 To stop your app user's phone live location tracking use the below mentioned method.
 ```javascript
@@ -210,4 +258,5 @@ Read about the latest updates & customer stories
   
   
 
-> © Copyright 2020. CE Info Systems Pvt. Ltd. All Rights Reserved. | [Terms & Conditions](http://www.mapmyindia.com/api/terms-&-conditions)
+> © Copyright 2021. CE Info Systems Pvt. Ltd. All Rights Reserved. | [Terms & Conditions](http://www.mapmyindia.com/api/terms-&-conditions)
+
