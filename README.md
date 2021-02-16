@@ -162,7 +162,7 @@ const  status = await  MapmyIndiaIntouch.isInitialized();
 
 #### Step 3: Initialize Intouch SDK
 
-Initialize the SDK with your Client ID and Client Secret and device name helps to identify the user.
+Initialize the SDK with your Client ID and Client Secret and device name.Device name helps to identify the user on Portal.
 
 ```javascript
 MapmyIndiaIntouch.initialize(deviceName,clientId,clientSecret
@@ -185,8 +185,8 @@ MapmyIndiaIntouch.startTracking();
 ```
 **You can start tracking using below three options**
 
--   MapmyIndiaIntouch.BEACON_PRIORITY_FAST(default)
--   MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL
+-   MapmyIndiaIntouch.BEACON_PRIORITY_FAST
+-   MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL(default)
 -   MapmyIndiaIntouch.BEACON_PRIORITY_SLOW
 ~~~javascript
 MapmyIndiaIntouch.startTracking(MapmyIndiaIntouch.BEACON_PRIORITY_OPTIMAL);
@@ -200,6 +200,10 @@ MapmyIndiaIntouch.startTrackingWithCustomConfig(timeWhileMovingInSec,standByTime
 ~~~
 * timeWhileMovingInSec:(number) tracking api hit time while moving in seconds.
 * standByTimeInMins:(number) tracking api hit time while standby in minutes.
+
+
+####  ***optional parameter (Android)***
+**enableRequestPermissionIfMissing**(boolean) Location permissions will handle by SDK if set to true.Default value is true
 
 #### Step 6. Stop tracking
 To stop your app user's phone live location tracking use the below mentioned method.
@@ -223,9 +227,22 @@ MapmyIndiaIntouch.addTrackingStateListener((event) => {
 });
 ```
 #### Step 8. Remove Listener
+This method will remove TrackingStateListener. Call this method before Unmounting component.
 ```javascript
 MapmyIndiaIntouch.removeTrackingStateListener();
 ```
+#### Step 9. getCurrentLocationUpdate 
+Updates single location on server and return to the user
+~~~javascript
+try {
+const  res= await  MapmyIndiaIntouch.getCurrentLocationUpdate();
+//do something with response
+} catch (e) {
+//error log
+}
+~~~
+*  optional parameter(Android)
+**enableRequestPermissionIfMissing**(boolean) Location permissions will be handled by SDK if set to true.Default value is true.
 
 ![Email](https://www.google.com/a/cpanel/mapmyindia.co.in/images/logo.gif?service=google_gsuite)
 
