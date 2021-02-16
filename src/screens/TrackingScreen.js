@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
+  Button
 } from 'react-native';
 import MapmyIndiaIntouch from 'mapmyindia-intouch-react-native-sdk';
 import play from '../assets/play_arrow_24_px.png';
@@ -187,7 +188,7 @@ class TrackingScreen extends Component {
         <Text style={styles.label}>Live Location Tracking</Text>
         <View style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{fontWeight: 'bold', color: 'grey'}}>Choose Speed</Text>
-           {picker}
+          {picker}
           <TouchableOpacity onPress={this.trackButtonPress}>
             <View style={styles.trackButton}>
               <Image source={this.state.icon} style={{height: 30, width: 30}} />
@@ -208,6 +209,22 @@ class TrackingScreen extends Component {
               </Text>
             </View>
           </TouchableOpacity>
+          <View style={{margin: 20}}>
+            <Button
+              title="Get current Location"
+              onPress={async () => {
+                try {
+                  const res = await MapmyIndiaIntouch.getCurrentLocationUpdate();
+                  Toast.show(
+                    `Longitute: ${res.longitude},Latitute: ${res.latitude}`,
+                  );
+                  console.log(res);
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
+            />
+          </View>
         </View>
       </View>
     );

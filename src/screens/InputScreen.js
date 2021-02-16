@@ -4,10 +4,10 @@ import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import MapmyIndiaIntouch from "mapmyindia-intouch-react-native-sdk";
 
 const clientId = '';
-const clientSecret='';
+const clientSecret = '';
 
 class InputScreen extends Component {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.state = {
       inputValue: '',
