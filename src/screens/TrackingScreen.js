@@ -25,6 +25,7 @@ class TrackingScreen extends Component {
       currentSpeed: MapmyIndiaIntouch.BEACON_PRIORITY_FAST,
       dropDownEnabled: true,
       pickerBackground: '#CCFF0000',
+      isTrackingRunning:false
     };
   }
 
@@ -40,6 +41,9 @@ class TrackingScreen extends Component {
     });
     this.getData();
     const status = await MapmyIndiaIntouch.isRunning();
+    this.setState({
+      isTrackingRunning:status
+    })
     this.setIconsAndLabel(status);
   }
 
@@ -68,13 +72,16 @@ class TrackingScreen extends Component {
     }
   };
   trackButtonPress = async () => {
-    const status = await MapmyIndiaIntouch.isRunning();
     //console.log(status);
-    if (status) {
-      
+    if (this.state.isTrackingRunning) {
+      this.setState({
+        isTrackingRunning:false
+      })
       MapmyIndiaIntouch.stopTracking();
     } else {
-      
+      this.setState({
+        isTrackingRunning:true
+      })
       MapmyIndiaIntouch.startTracking(this.state.currentSpeed);
       //MapmyIndiaIntouch.startTrackingWithCustomConfig(5,5);
     }
