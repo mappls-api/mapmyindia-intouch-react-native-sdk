@@ -196,14 +196,30 @@ Note: If no priority provided default will be used.
 #### OR
 
 ~~~javascript
-MapmyIndiaIntouch.startTrackingWithCustomConfig(timeWhileMovingInSec,standByTimeInMins);
+MapmyIndiaIntouch.startTrackingWithCustomConfig({
+  standByTimeInMins: 1,//mandatory
+  timeWhileMovingInSec: 10,//mandatory
+  beaconStartTimeInSec: 1616475626,
+  beaconEndTimeInSec: 1616475926,
+  enableRequestPermissionIfMissing:true
+  });
 ~~~
-* timeWhileMovingInSec:(number) tracking api hit time while moving in seconds.
-* standByTimeInMins:(number) tracking api hit time while standby in minutes.
 
+  
 
-####  ***optional parameter (Android)***
-**enableRequestPermissionIfMissing**(boolean) Location permissions will handle by SDK if set to true.Default value is true
+*  **timeWhileMovingInSec**:(number) tracking api hit time while moving in seconds.
+
+*  **standByTimeInMins**:(number) tracking api hit time while standby in minutes.
+
+  
+
+#### Only for android Platform
+
+*  **beaconStartTimeInSec**: (number) time for beacon to start tracking.(Unix epoch time)
+
+*  **beaconEndTimeInSec** :(number ) time for beacon to stop tracking.(Unix epoch time)
+
+*  **enableRequestPermissionIfMissing**(boolean) Location permissions will handle by SDK if set to true.Default value is true
 
 #### Step 6. Stop tracking
 To stop your app user's phone live location tracking use the below mentioned method.
