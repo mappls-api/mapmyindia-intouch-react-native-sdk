@@ -108,6 +108,9 @@ versionName "1.0"
 }
 ```
 
+#### Note:
+1. Java Version 11 Required
+2. minimum compileSdkVersion 31 required
 
 ### IOS
 *  Add follwoing permissions in your project's plist.info
@@ -131,11 +134,13 @@ versionName "1.0"
 <string>location</string>
 </array>
 ~~~
+* Add following function in your project's **AppDelegate.h**
+~~~objectivec
+#import  <BeaconSdkFramework/BeaconSdkFramework.h>
+~~~
 * Add following function in your project's **AppDelegate.m**
 
 ~~~objectivec
-#import  <BeaconSdkFramework/BeaconSdkFramework.h>
-
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler
 {
@@ -165,14 +170,12 @@ const  status = await  MapmyIndiaIntouch.isInitialized();
 Initialize the SDK with your Client ID and Client Secret and device name.Device name helps to identify the user on Portal.
 
 ```javascript
-MapmyIndiaIntouch.initialize(deviceName,clientId,clientSecret
-(result) => {
-if (result === 'success') {
-console.log("success")
-} else {
-//error log
-console.log(result)
-});
+MapmyIndiaIntouch.initialize(deviceName,clientId,clientSecret)
+   .then(entityId  => {
+   console.log(entityId);
+   }).catch(err=>{
+     console.log(err.message)
+   });
 ```
 #### Step 4:  Check if Intouch SDK is already running
 ```javascript
@@ -230,16 +233,13 @@ MapmyIndiaIntouch.stopTracking();
 This method will be called when tracking starts, stops or some tracking error is caught.
 ```javascript
 MapmyIndiaIntouch.addTrackingStateListener((event) => {
- switch(event) {  
-    case 'onTrackingStart':  
-     //Do something on tracking start
-     break;  
-    case 'onTrackingStop':  
-     //Do something on tracking stop
-     break;  
-    default: 
-    //Tracking errors
-        }
+if(event === 'onTrackingStart'){
+
+}else if(event === 'onTrackingStop'){
+
+}
+},(error)=>{
+console.log(error.message);
 });
 ```
 #### Step 8. Remove Listener
@@ -291,5 +291,5 @@ Read about the latest updates & customer stories
   
   
 
-> © Copyright 2021. CE Info Systems Pvt. Ltd. All Rights Reserved. | [Terms & Conditions](http://www.mapmyindia.com/api/terms-&-conditions)
+> © Copyright 2022. CE Info Systems Pvt. Ltd. All Rights Reserved. | [Terms & Conditions](http://www.mapmyindia.com/api/terms-&-conditions)
 

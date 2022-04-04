@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-  Button
+  Button,
 } from 'react-native';
 import MapmyIndiaIntouch from 'mapmyindia-intouch-react-native-sdk';
 import play from '../assets/play_arrow_24_px.png';
@@ -25,25 +25,30 @@ class TrackingScreen extends Component {
       currentSpeed: MapmyIndiaIntouch.BEACON_PRIORITY_FAST,
       dropDownEnabled: true,
       pickerBackground: '#CCFF0000',
-      isTrackingRunning:false
+      isTrackingRunning: false,
     };
   }
 
   async componentDidMount() {
-    MapmyIndiaIntouch.addTrackingStateListener((event) => {
-      Toast.show(event);
-      console.log(event);
-      if(event==="onTrackingStart"){
-        this.setIconsAndLabel(true);
-      }else{
-        this.setIconsAndLabel(false);
+    MapmyIndiaIntouch.addTrackingStateListener(
+      (event) => {
+        Toast.show(event);
+        if (event === 'onTrackingStart') {
+          this.setIconsAndLabel(true);
+      } else if (event === 'onTrackingStop') {
+      this.setIconsAndLabel(false);
       }
-    });
+      },
+      (error) => {
+        Toast.show(error.message);
+        console.log(error.message);
+      },
+    );
     this.getData();
     const status = await MapmyIndiaIntouch.isRunning();
     this.setState({
-      isTrackingRunning:status
-    })
+      isTrackingRunning: status,
+    });
     this.setIconsAndLabel(status);
   }
 
@@ -75,13 +80,13 @@ class TrackingScreen extends Component {
     //console.log(status);
     if (this.state.isTrackingRunning) {
       this.setState({
-        isTrackingRunning:false
-      })
+        isTrackingRunning: false,
+      });
       MapmyIndiaIntouch.stopTracking();
     } else {
       this.setState({
-        isTrackingRunning:true
-      })
+        isTrackingRunning: true,
+      });
       MapmyIndiaIntouch.startTracking(this.state.currentSpeed);
       //MapmyIndiaIntouch.startTrackingWithCustomConfig(5,5);
     }

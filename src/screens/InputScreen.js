@@ -1,7 +1,7 @@
 import {ProgressBar} from '@react-native-community/progress-bar-android';
 import React, {Component} from 'react';
 import {Button, Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import MapmyIndiaIntouch from "mapmyindia-intouch-react-native-sdk";
+import MapmyIndiaIntouch from 'mapmyindia-intouch-react-native-sdk';
 
 const clientId = '';
 const clientSecret = '';
@@ -27,17 +27,17 @@ class InputScreen extends Component {
         this.state.inputValue,
         clientId,
         clientSecret,
-        (result) => {
-          if (result === 'success') {
-            this.props.navigation.replace('track');
-          } else {
-            this.setState({
-              error: result,
-              showProgressbar: false,
-            });
-          }
-        },
-      );
+      )
+        .then((entityId) => {
+          this.props.navigation.replace('track');
+        })
+        .catch((err) => {
+          this.setState({
+            error: err.message,
+            showProgressbar: false,
+          });
+          console.log(err.message);
+        });
     } else {
       this.setState({
         error: 'Please provide device name',
