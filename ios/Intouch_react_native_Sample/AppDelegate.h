@@ -1,6 +1,6 @@
 #import <React/RCTBridgeDelegate.h>
 #import <UIKit/UIKit.h>
-#import <BeaconSdkFramework/BeaconSdkFramework.h>
+#import <MapmyIndiaIntouchCore/MapmyIndiaIntouchCore.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
 
