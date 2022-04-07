@@ -136,7 +136,7 @@ versionName "1.0"
 ~~~
 * Add following function in your project's **AppDelegate.h**
 ~~~objectivec
-#import  <BeaconSdkFramework/BeaconSdkFramework.h>
+#import <MapmyIndiaIntouchCore/MapmyIndiaIntouchCore.h>
 ~~~
 * Add following function in your project's **AppDelegate.m**
 
