@@ -177,6 +177,24 @@ MapmyIndiaIntouch.initialize(deviceName,clientId,clientSecret)
      console.log(err.message)
    });
 ```
+  
+### OR
+Initialize the SDK with your Client ID , Client Secret , device name and deviceId. deviceId should be unique ID for every user.
+*  deviceId will be used to store the data against the particular user.
+* deviceName will be used to identify the user on Portal
+  
+~~~javascript
+MapmyIndiaIntouch.initializeWithDeviceId(deviceName,clientId,clientSecret,deviceId,
+(result) => {
+if (result === 'success') {
+//success
+ } else {
+//error 
+});
+~~~
+  
+**Note**:This method can be used in case if your users uses two mobile phone. In this case, Both the mobile phone data will be pushed against the same deviceID. So ensure that before user logging into the new phone, logout the user from previous phone and call the stop tracking method. So that always tracking data will come from the single phone.
+
 #### Step 4:  Check if Intouch SDK is already running
 ```javascript
 const  status = await  MapmyIndiaIntouch.isRunning()
