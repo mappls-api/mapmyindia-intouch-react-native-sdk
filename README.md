@@ -1,8 +1,5 @@
-  
-
 ![MapmyIndia APIs](https://www.mapmyindia.com/api/img/mapmyindia-api.png)
 
-  
 
 # MapmyIndia Intouch React Native SDK
 ## Introduction
@@ -64,7 +61,7 @@ For Android and Ios add the below mentioned lines
 
 ### Android
 * Add following line in `android/build.gradle` file:-
-```diff
+```groovy
 allprojects {
    repositories {
             mavenLocal()
@@ -90,7 +87,7 @@ allprojects {
 ```
   * Add following line in `android/app/build.gradle` file:-
   
-  ```diff
+  ```groovy
   defaultConfig {
 
 applicationId "com.intouch_react_native_sample"
@@ -220,9 +217,8 @@ Note: If no priority provided default will be used.
 MapmyIndiaIntouch.startTrackingWithCustomConfig({
   standByTimeInMins: 1,//mandatory
   timeWhileMovingInSec: 10,//mandatory
-  beaconStartTimeInSec: 1616475626,
-  beaconEndTimeInSec: 1616475926,
   enableRequestPermissionIfMissing:true
+  autoTrackingConfig: {endTimeConfig: {hour:  7, minute:  58, amPm:  "pm"}}
   });
 ~~~
 
@@ -236,11 +232,13 @@ MapmyIndiaIntouch.startTrackingWithCustomConfig({
 
 #### Only for android Platform
 
-*  **beaconStartTimeInSec**: (number) time for beacon to start tracking.(Unix epoch time)
-
-*  **beaconEndTimeInSec** :(number ) time for beacon to stop tracking.(Unix epoch time)
-
 *  **enableRequestPermissionIfMissing**(boolean) Location permissions will handle by SDK if set to true.Default value is true
+*  **autoTrackingConfig**(object): To set auto tracking settings:
+	*  **endTimeConfig**(object): To set option to stop the tracking at time
+		* **hour**(number): To set hours (1-12)
+		* **minute**(number): To set minutes (0 - 59). Default value 0
+		* **second**(number): To set seconds (0 - 59). Default is 0
+		* **amPm**(String): `am` or `pm`. Default value is `am`
 
 #### Step 6. Stop tracking
 To stop your app user's phone live location tracking use the below mentioned method.
@@ -309,5 +307,5 @@ Read about the latest updates & customer stories
   
   
 
-> © Copyright 2022. CE Info Systems Pvt. Ltd. All Rights Reserved. | [Terms & Conditions](http://www.mapmyindia.com/api/terms-&-conditions)
+> © Copyright 2022. CE Info Systems Ltd. All Rights Reserved. | [Terms & Conditions](http://www.mapmyindia.com/api/terms-&-conditions)
 

@@ -4676,10 +4676,10 @@
   dependencies:
     "object-visit" "^1.0.0"
 
-"mapmyindia-intouch-react-native-sdk@^0.7.0":
-  "integrity" "sha512-lyKDuTbEW7s3h1ESsPFIttiHnD59khyZO3MsOWQBmlGMuVqgRBVI1tAmnWUXp9yNUkH7lBIAcKEGHhRINsYgqw=="
-  "resolved" "https://registry.npmjs.org/mapmyindia-intouch-react-native-sdk/-/mapmyindia-intouch-react-native-sdk-0.7.0.tgz"
-  "version" "0.7.0"
+"mapmyindia-intouch-react-native-sdk@^0.8.0":
+  "integrity" "sha512-nwSgdaDu4GCxreKOxbMGBtCWAh/ffuMUOud2Zj+ST3jDNhr4ib+llvME2iOX32Kz0vsOko+yJGb/Apwpvai+/g=="
+  "resolved" "https://registry.npmjs.org/mapmyindia-intouch-react-native-sdk/-/mapmyindia-intouch-react-native-sdk-0.8.0.tgz"
+  "version" "0.8.0"
 
 "merge-stream@^1.0.1":
   "integrity" "sha1-QEEgLVCKNCugAXQAjfDCUbjBNeE="
