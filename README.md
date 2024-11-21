@@ -1,3 +1,6 @@
+# DEPRECATED
+This repository is no longer in active development & use.
+
 ![MapmyIndia APIs](https://www.mapmyindia.com/api/img/mapmyindia-api.png)
 
 
